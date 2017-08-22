@@ -1,1 +1,1 @@
-web: python bot.py
+web: gunicorn gitman:app --log-file -
