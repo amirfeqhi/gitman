@@ -4,24 +4,22 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import telegram
 import logging
 import requests
-# import telepot
+#import telepot
 import time
 import urllib3
 import json
 import os
-import flask
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 logger = logging.getLogger(__name__)
 
 # proxy_url = "http://proxy.server:3128"
-#
+
 # telepot.api._pools = {
 #     'default': urllib3.ProxyManager(proxy_url=proxy_url, num_pools=3, maxsize=10, retries=False, timeout=30),
 # }
 # telepot.api._onetime_pool_spec = (urllib3.ProxyManager, dict(proxy_url=proxy_url, num_pools=1, maxsize=1, retries=False, timeout=30))
-
 
 def start(bot, update):
     update.message.reply_text('Hi I\'m GitMan!\n These are List Of My Works:\n 1.Use /pic And Username to See the Picture.\n 2.Use /page And Username to Get the User Github Page.\n 3.Use /followcount for get Number of Users followers and following.\n 4.Use /followers to see Users followers.\n 5.Use /following to see Users following.\n 6.Use /repo to see Users Repos.')
@@ -126,27 +124,31 @@ def user_repo(bot, update, args):
                 count += 1
     else:
         bot.send_message(chat_id=update.message.chat_id, text='Please Enter a Username!')
-        
-@app.route("/")
-def main():
-    PORT = int(os.environ.get('PORT', '5000'))
 
-    updater = Updater('432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU')
-    updater.start_webhook(listen="0.0.0.0",
-                          port=PORT,
-                          url_path='432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU')
-    updater.bot.set_webhook("https://gitman.herokuapp.com/" + '432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU')
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(MessageHandler(Filters.text, echo))
-    dp.add_error_handler(error)
-    # dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(CommandHandler("pic", user_pic, pass_args=True))
-    dp.add_handler(CommandHandler("page", user_page, pass_args=True))
-    dp.add_handler(CommandHandler("followcount", user_follow, pass_args=True))
-    dp.add_handler(CommandHandler("followers", user_followers, pass_args=True))
-    dp.add_handler(CommandHandler("following", user_following, pass_args=True))
-    dp.add_handler(CommandHandler("repo", user_repo, pass_args=True))
-    updater.start_polling()
-    updater.idle()
 
+# def main():
+TOKEN = "432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU"
+PORT = int(os.environ.get('PORT', '5000'))
+updater = Updater(TOKEN)
+updater.start_webhook(listen="0.0.0.0",
+                      port=PORT,
+                      url_path=TOKEN)
+updater.bot.set_webhook("https://gitman.herokuapp.com/" + TOKEN)
+dp = updater.dispatcher
+
+dp.add_handler(CommandHandler("start", start))
+dp.add_handler(MessageHandler(Filters.text, echo))
+dp.add_error_handler(error)
+# dp.add_handler(CommandHandler("help", help))
+dp.add_handler(CommandHandler("pic", user_pic, pass_args=True))
+dp.add_handler(CommandHandler("page", user_page, pass_args=True))
+dp.add_handler(CommandHandler("followcount", user_follow, pass_args=True))
+dp.add_handler(CommandHandler("followers", user_followers, pass_args=True))
+dp.add_handler(CommandHandler("following", user_following, pass_args=True))
+dp.add_handler(CommandHandler("repo", user_repo, pass_args=True))
+updater.start_polling()
+updater.idle()
+
+
+# if __name__ == '__main__':
+#     main()
