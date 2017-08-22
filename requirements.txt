@@ -12,7 +12,6 @@ CacheControl==0.12.3
 certifi==2017.7.27.1
 cffi==1.10.0
 click==6.7
-conda==4.3.22
 coverage==4.4.1
 cryptography==1.8.1
 decorator==4.1.2
