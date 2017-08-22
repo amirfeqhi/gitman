@@ -126,29 +126,29 @@ def user_repo(bot, update, args):
         bot.send_message(chat_id=update.message.chat_id, text='Please Enter a Username!')
 
 
-# def main():
-TOKEN = "432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU"
-PORT = int(os.environ.get('PORT', '5000'))
-updater = Updater(TOKEN)
-updater.start_webhook(listen="0.0.0.0",
-                      port=PORT,
-                      url_path=TOKEN)
-updater.bot.set_webhook("https://gitman.herokuapp.com/" + TOKEN)
-dp = updater.dispatcher
+def main():
+    TOKEN = "432666119:AAGbNIuTpNZ2sJG4-9MDeETQN1N6uOFN0tU"
+    PORT = int(os.environ.get('PORT', '5000'))
+    updater = Updater(TOKEN)
+    updater.start_webhook(listen="0.0.0.0",
+                          port=PORT,
+                          url_path=TOKEN)
+    updater.bot.set_webhook("https://gitman.herokuapp.com/" + TOKEN)
+    dp = updater.dispatcher
 
-dp.add_handler(CommandHandler("start", start))
-dp.add_handler(MessageHandler(Filters.text, echo))
-dp.add_error_handler(error)
-# dp.add_handler(CommandHandler("help", help))
-dp.add_handler(CommandHandler("pic", user_pic, pass_args=True))
-dp.add_handler(CommandHandler("page", user_page, pass_args=True))
-dp.add_handler(CommandHandler("followcount", user_follow, pass_args=True))
-dp.add_handler(CommandHandler("followers", user_followers, pass_args=True))
-dp.add_handler(CommandHandler("following", user_following, pass_args=True))
-dp.add_handler(CommandHandler("repo", user_repo, pass_args=True))
-updater.start_polling()
-updater.idle()
+    dp.add_handler(CommandHandler("start", start))
+    dp.add_handler(MessageHandler(Filters.text, echo))
+    dp.add_error_handler(error)
+    # dp.add_handler(CommandHandler("help", help))
+    dp.add_handler(CommandHandler("pic", user_pic, pass_args=True))
+    dp.add_handler(CommandHandler("page", user_page, pass_args=True))
+    dp.add_handler(CommandHandler("followcount", user_follow, pass_args=True))
+    dp.add_handler(CommandHandler("followers", user_followers, pass_args=True))
+    dp.add_handler(CommandHandler("following", user_following, pass_args=True))
+    dp.add_handler(CommandHandler("repo", user_repo, pass_args=True))
+    updater.start_polling()
+    updater.idle()
 
 
-# if __name__ == '__main__':
-#     main()
+if __name__ == '__main__':
+    main()
